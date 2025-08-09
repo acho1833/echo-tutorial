@@ -1,4 +1,4 @@
-2:08
+2:40
 
 # shadcn/ui monorepo template
 

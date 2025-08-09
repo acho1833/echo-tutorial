@@ -16,6 +16,13 @@ export const add = mutation({
         if (identity === null) {
             throw new Error('Unauthorized: User must be authenticated to add a user');
         }
+
+        const orgId = identity.orgId as string;
+
+        if (!orgId) {
+            throw new Error('Unauthorized: User must be part of an organization to add a user');
+        }
+
         const userId = await ctx.db.insert('users', {
             name: 'Kevin'
         });
