@@ -23,6 +23,8 @@ export const add = mutation({
             throw new Error('Unauthorized: User must be part of an organization to add a user');
         }
 
+        throw new Error('Tracking test');
+
         const userId = await ctx.db.insert('users', {
             name: 'Kevin'
         });
