@@ -15,7 +15,7 @@ const useVapi = () => {
 
     useEffect(() => {
         // Only for testing the Vapi instance
-        const vapiInstance = new Vapi();
+        const vapiInstance = new Vapi('abc');
         setVapi(vapiInstance);
 
         vapiInstance.on('call-start', () => {
