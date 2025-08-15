@@ -9,6 +9,7 @@
     "./convex": "./convex/*.ts"
   },
   "dependencies": {
+    "@clerk/backend": "^2.9.1",
     "convex": "^1.25.4"
   },
   "devDependencies": {

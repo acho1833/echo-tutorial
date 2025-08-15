@@ -26,14 +26,33 @@ export const create = mutation({
         ),
     },
     handler: async (ctx, args) => {
-      const now = Date.now();
-      const expiresAt = now + SESSION_DURATION_MS;
+        const now = Date.now();
+        const expiresAt = now + SESSION_DURATION_MS;
 
-      const contactSessionId = await ctx.db.insert('contactSessions', {
-          ...args,
-          expiresAt,
-      });
+        const contactSessionId = await ctx.db.insert('contactSessions', {
+            ...args,
+            expiresAt,
+        });
 
-      return contactSessionId;
+        return contactSessionId;
+    },
+});
+
+export const validate = mutation({
+    args: {
+        contactSessionId: v.id('contactSessions'),
+    },
+    handler: async (ctx, args) => {
+        const contactSession = await ctx.db.get(args.contactSessionId);
+
+        if (!contactSession) {
+            return { valid: false, reason: 'Contact session not found' };
+        }
+
+        if (contactSession.expiresAt < Date.now()) {
+            return { valid: false, reason: 'Contact session expired' };
+        }
+
+        return { valid: true, contactSession };
     },
 });
